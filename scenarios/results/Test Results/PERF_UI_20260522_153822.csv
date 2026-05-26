@@ -1,0 +1,11 @@
+Timestamp,UserID,SamplerEvent,URL,load_ms - Full Page Load Time, dom_content_loaded_ms, dom_content_loaded_ms,ttfb_ms-First Content Visible, fcp_ms, LCP - Time to Interactive (TTI),actionElapsed 
+"2026-05-22 15:39:02","null","01 - jp@gc - WebDriver Sampler - Login And Portal Home","data:,","973.4000000022352","972.8000000007451","0","null","null","14588","true"
+"2026-05-22 15:39:28","null","02 - jp@gc - WebDriver Sampler - Payment Page","data:,","973.4000000022352","972.8000000007451","0","null","null","3799","true"
+"2026-05-22 15:39:47","null","03 - jp@gc - WebDriver Sampler - Bank Details page","data:,","973.4000000022352","972.8000000007451","0","null","null","5978","true"
+"2026-05-22 15:40:10","null","04 - jp@gc - WebDriver Sampler - Click updatebankdetailsLink","data:,","973.4000000022352","972.8000000007451","0","null","null","4460","true"
+"2026-05-22 15:40:41","null","05 - jp@gc - WebDriver Sampler - Click_How it works page","data:,","973.4000000022352","972.8000000007451","0","null","null","3033","true"
+"2026-05-22 15:41:14","null","06 - jp@gc - WebDriver Sampler - Add bank details","data:,","973.4000000022352","972.8000000007451","0","null","null","8715","true"
+"2026-05-22 15:42:41","null","07 - jp@gc - WebDriver Sampler - Confirm new bank account","data:,","973.4000000022352","972.8000000007451","0","null","null","3833","true"
+"2026-05-22 15:42:57","null","08 - jp@gc - WebDriver Sampler - Confirm bank details page","data:,","973.4000000022352","972.8000000007451","0","null","null","2569","true"
+"2026-05-22 15:43:09","null","09 - jp@gc - WebDriver Sampler - Confirm bank details Landing page as HOF","data:,","973.4000000022352","972.8000000007451","0","null","null","2682","true"
+"2026-05-22 15:43:25","null","12 - jp@gc - WebDriver Sampler - GetHelp Page","data:,","973.4000000022352","972.8000000007451","0","null","null","2719","true"
