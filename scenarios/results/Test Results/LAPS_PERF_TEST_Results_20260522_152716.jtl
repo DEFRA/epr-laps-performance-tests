@@ -1,0 +1,25 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1779460042058,9365,01 - jp@gc - WebDriver Sampler - Login And Portal Home,500,unknown protocol: data,Thread Group 1-1,text,false,,660,0,1,1,null,0,0,0
+1779460051423,12480,02 - jp@gc - WebDriver Sampler - Payment Page,500,unknown protocol: data,Thread Group 1-1,text,false,,660,0,1,1,null,0,0,0
+1779460063903,13386,03 - jp@gc - WebDriver Sampler - Bank Details page,500,unknown protocol: data,Thread Group 1-1,text,false,,660,0,1,1,null,0,0,0
+1779460077289,12848,04 - jp@gc - WebDriver Sampler - Click updatebankdetailsLink,500,unknown protocol: data,Thread Group 1-1,text,false,,660,0,1,1,null,0,0,0
+1779460090138,11559,05 - jp@gc - WebDriver Sampler - Click_How it works page,500,unknown protocol: data,Thread Group 1-1,text,false,,660,0,1,1,null,0,0,0
+1779460101699,15492,06 - jp@gc - WebDriver Sampler - Add bank details,500,unknown protocol: data,Thread Group 1-1,text,false,,660,0,1,1,null,0,0,0
+1779460117190,13454,07 - jp@gc - WebDriver Sampler - Confirm new bank account,500,unknown protocol: data,Thread Group 1-1,text,false,,660,0,1,1,null,0,0,0
+1779460130618,26700,08 - jp@gc - WebDriver Sampler - Confirm bank details page,500,unknown protocol: data,Thread Group 1-1,text,false,,660,0,1,1,null,0,0,0
+1779460157175,16594,09 - jp@gc - WebDriver Sampler - Confirm bank details Landing page as HOF,500,unknown protocol: data,Thread Group 1-1,text,false,,660,0,1,1,null,0,0,0
+1779460173697,28,10 - jp@gc - WebDriver Sampler - Confirm bank details submit as HOF,500,"org.codehaus.groovy.control.MultipleCompilationErrorsException: startup failed:
+Script144.groovy: 69: Unexpected input: '(""https://epr-laps-frontend.perf-test.cdp-int.defra.cloud/confirm""))' @ line 69, column 110.
+   .cdp-int.defra.cloud/confirm""))
+                                 ^
+
+1 error
+",Thread Group 1-1,text,false,,973,0,1,1,null,0,0,0
+1779460173726,30,11 - jp@gc - WebDriver Sampler - Confirmation page for Confirm bank details as HOF,500,"org.codehaus.groovy.control.MultipleCompilationErrorsException: startup failed:
+Script145.groovy: 68: Unexpected input: '(""https://epr-laps-frontend.perf-test.cdp-int.defra.cloud/confirm""))' @ line 68, column 110.
+   .cdp-int.defra.cloud/confirm""))
+                                 ^
+
+1 error
+",Thread Group 1-1,text,false,,973,0,1,1,null,0,0,0
+1779460173756,22297,12 - jp@gc - WebDriver Sampler - GetHelp Page,500,unknown protocol: data,Thread Group 1-1,text,false,,660,0,1,1,null,0,0,0
