@@ -1,0 +1,1685 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan">
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+    </TestPlan>
+    <hashTree>
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="setUp Thread Group">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <stringProp name="LoopController.loops">1</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </SetupThreadGroup>
+      <hashTree>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">def runId = new Date().format(&quot;yyyyMMdd_HHmmss&quot;)
+def env = &quot;PERF&quot;
+def baseDir = System.getProperty(&quot;baseDir&quot;, &quot;C:/TestResults&quot;)
+
+def filePath = &quot;${baseDir}/${env}_UI_${runId}.csv&quot;
+props.put(&quot;metricsFile&quot;, filePath)
+
+
+def file = new File(filePath)
+file.parentFile.mkdirs()
+
+if (!file.exists()) {
+    file.write(&quot;Timestamp,SamplerEvent,URL,load_ms - Full Page Load Time, dom_content_loaded_ms,ttfb_ms-First Content Visible, fcp_ms, LCP - Time to Interactive (TTI),actionElapsed \n&quot;)
+}
+
+
+</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+          <collectionProp name="Arguments.arguments">
+            <elementProp name="P_PerfUrl" elementType="Argument">
+              <stringProp name="Argument.name">P_PerfUrl</stringProp>
+              <stringProp name="Argument.value">https://epr-laps-frontend.perf-test.cdp-int.defra.cloud/</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="username" elementType="Argument">
+              <stringProp name="Argument.name">username</stringProp>
+              <stringProp name="Argument.value">dennis.effa.amponsah@accenture.com</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="P_UatUrl" elementType="Argument">
+              <stringProp name="Argument.name">P_UatUrl</stringProp>
+              <stringProp name="Argument.value">https://epruat.service-now.com/navpage.do</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="P_preProd_GSP_Portal" elementType="Argument">
+              <stringProp name="Argument.name">P_preProd_GSP_Portal</stringProp>
+              <stringProp name="Argument.value">https://eprpreprod.service-now.com/gsp</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="P_SIT_GSP_Portal" elementType="Argument">
+              <stringProp name="Argument.name">P_SIT_GSP_Portal</stringProp>
+              <stringProp name="Argument.value">https://eprsit.service-now.com/gsp</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="email" elementType="Argument">
+              <stringProp name="Argument.name">email</stringProp>
+              <stringProp name="Argument.value">tester8@example.com</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+          </collectionProp>
+        </Arguments>
+        <hashTree/>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <longProp name="ThreadGroup.duration">3600</longProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <stringProp name="LoopController.loops">100</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <com.googlecode.jmeter.plugins.webdriver.config.ChromeDriverConfig guiclass="com.googlecode.jmeter.plugins.webdriver.config.gui.ChromeDriverConfigGui" testclass="com.googlecode.jmeter.plugins.webdriver.config.ChromeDriverConfig" testname="jp@gc - Chrome Driver Config">
+          <boolProp name="WebDriverConfig.acceptinsecurecerts">false</boolProp>
+          <boolProp name="WebDriverConfig.reset_per_iteration">true</boolProp>
+          <stringProp name="WebDriverConfig.driver_path">C:/drivers/chromedriver.exe</stringProp>
+          <boolProp name="WebDriverConfig.dev_mode">false</boolProp>
+          <boolProp name="WebDriverConfig.headless">false</boolProp>
+          <boolProp name="WebDriverConfig.maximize_browser">true</boolProp>
+          <stringProp name="ChromeDriverConfig.additional_args"></stringProp>
+          <stringProp name="ChromeDriverConfig.binary_path"></stringProp>
+          <stringProp name="WebDriverConfig.proxy_type">SYSTEM</stringProp>
+          <stringProp name="WebDriverConfig.proxy_pac_url"></stringProp>
+          <stringProp name="WebDriverConfig.http_host"></stringProp>
+          <intProp name="WebDriverConfig.http_port">8080</intProp>
+          <boolProp name="WebDriverConfig.use_http_for_all_protocols">true</boolProp>
+          <stringProp name="WebDriverConfig.https_host"></stringProp>
+          <intProp name="WebDriverConfig.https_port">8080</intProp>
+          <boolProp name="WebDriverConfig.use_ftp_proxy">true</boolProp>
+          <stringProp name="WebDriverConfig.ftp_host"></stringProp>
+          <intProp name="WebDriverConfig.ftp_port">8080</intProp>
+          <boolProp name="WebDriverConfig.use_socks_proxy">true</boolProp>
+          <stringProp name="WebDriverConfig.socks_host"></stringProp>
+          <intProp name="WebDriverConfig.socks_port">8080</intProp>
+          <stringProp name="WebDriverConfig.no_proxy">localhost</stringProp>
+          <stringProp name="WebDriverConfig.custom_capabilites"></stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.config.ChromeDriverConfig>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="01 - jp@gc - WebDriver Sampler - Login And Portal Home">
+          <stringProp name="WebDriverSampler.script">import org.openqa.selenium.JavascriptExecutor
+import org.openqa.selenium.By
+import org.openqa.selenium.support.ui.WebDriverWait
+import org.openqa.selenium.support.ui.ExpectedConditions
+import java.time.Duration
+
+def driver = WDS.browser
+driver.manage().window().maximize()
+
+JavascriptExecutor js = (JavascriptExecutor) driver
+WDS.log.info(&quot;:--------START OF LOGIN SCRIPT:--------&quot;)
+
+    // Create explicit wait
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20))
+
+
+// Open LAPS page
+    driver.get(&quot;https://epr-laps-frontend.dev.cdp-int.defra.cloud/&quot;)
+// Wait until browser leaves temporary data: page
+    wait.until { drv -&gt;
+        !drv.getCurrentUrl().startsWith(&quot;data:&quot;)
+    }
+
+    WDS.log.info(&quot;Current URL after navigation: &quot; + driver.getCurrentUrl())
+	
+// Define reusable functions
+def clickHome = {
+    def homeLink = wait.until(
+    ExpectedConditions.elementToBeClickable(
+    By.xpath(&quot;//a[normalize-space()=&apos;LAPs home&apos;]&quot;)
+    )
+  )
+    homeLink.click()
+     WDS.log.info(&quot;Clicked home page link:--------&quot;)
+}	
+// Wait up to 20 seconds for the page containing &quot;List of Registered users&quot; 
+to appear
+									 
+    def downloadsHeader = 
+wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(&quot;//table
+/caption[contains(normalize-space(), &apos;Registered users&apos;)]&quot;)))
+    
+// Log success
+    WDS.log.info(&quot;Page loaded and header is visible:--------&quot; + 
+downloadsHeader.getText())
+
+// Select user row + click Log in --  Use hardcoded email OR JMeter variable
+    String email = WDS.vars.get(&quot;email&quot;)
+
+    // String email = WDS.vars.get(&quot;email&quot;) != null ? WDS.vars.get(&quot;email&quot;) : 
+&quot;tester8@example.com&quot;
+
+    def loginLink = wait.until(
+    
+ExpectedConditions.elementToBeClickable(By.xpath(&quot;//tr[th[normalize-space(
+)=&apos;&quot; + email + &quot;&apos;]]//a[normalize-space()=&apos;Log in&apos;]&quot;)))
+
+    def actionStart = System.currentTimeMillis()
+        
+    loginLink.click()
+     WDS.log.info(&quot;Clicked Login link for user:-------- &quot; + email)
+//select ratdio button
+def radioBtn = wait.until(
+  ExpectedConditions.elementToBeClickable(
+  By.xpath(&quot;//label[normalize-space()=&apos;North Tyneside Council&apos;]&quot;)
+  )
+)
+radioBtn.click()
+WDS.log.info(&quot;Radio selected:--------&quot;)
+// Click Continue
+def continueBtn = wait.until(
+	
+ExpectedConditions.elementToBeClickable(By.xpath(&quot;//button[normalize-space
+()=&apos;Continue&apos;] | //a[normalize-space()=&apos;Continue&apos;]&quot;)))
+continueBtn.click()
+ WDS.log.info(&quot;Clicked Continue and landed in LAPS Home page&quot;)
+    WDS.log.info(&quot;:--------END OF LOGIN SCRIPT:--------&quot;)   
+// Allow paint entries to settle a little
+Thread.sleep(1500)
+
+/////////////////////////
+// PERFORMANCE METRICS
+/////////////////////////
+
+def metrics = WDS.browser.executeScript(&quot;&quot;&quot;
+    var result = {
+        load_ms: null,
+        dom_content_loaded_ms: null,
+        ttfb_ms: null,
+        fcp_ms: null
+    };
+
+    var nav = performance.getEntriesByType(&apos;navigation&apos;);
+    if (nav &amp;&amp; nav.length &gt; 0) {
+        var n = nav[0];
+        result.load_ms = n.loadEventEnd;
+        result.dom_content_loaded_ms = n.domContentLoadedEventEnd;
+        result.ttfb_ms = n.responseStart - n.requestStart;
+    } else if (performance.timing) {
+        result.load_ms = performance.timing.loadEventEnd - 
+performance.timing.navigationStart;
+        result.dom_content_loaded_ms = 
+performance.timing.domContentLoadedEventEnd - 
+performance.timing.navigationStart;
+        result.ttfb_ms = performance.timing.responseStart - 
+performance.timing.requestStart;
+    }
+
+    var paints = performance.getEntriesByType(&apos;paint&apos;);
+    for (var i = 0; i &lt; paints.length; i++) {
+        if (paints[i].name === &apos;first-contentful-paint&apos;) {
+            result.fcp_ms = paints[i].startTime;
+            break;
+        }
+    }
+
+    return result;
+&quot;&quot;&quot;)
+
+// LCP
+def lcp = WDS.browser.executeAsyncScript(&quot;&quot;&quot;
+    var callback = arguments[arguments.length - 1];
+
+    var lcpValue = null;
+
+    try {
+        new PerformanceObserver(function(list) {
+            var entries = list.getEntries();
+            if (entries.length &gt; 0) {
+                lcpValue = entries[entries.length - 1].startTime;
+            }
+        }).observe({type: &apos;largest-contentful-paint&apos;, buffered: true});
+
+        setTimeout(function() {
+            callback(lcpValue);
+        }, 1000);
+
+    } catch (e) {
+        callback(null);
+    }
+&quot;&quot;&quot;)
+
+
+def actionElapsed = System.currentTimeMillis() - actionStart
+def currentUrl = WDS.browser.getCurrentUrl()
+def actionName = WDS.sampleResult.getSampleLabel()
+						 
+//WDS.sampleResult.sampleEnd()
+//WDS.sampleResult.setSuccessful(true)				
+
+    // CSV logging
+
+def ts = new java.text.SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;).format(new 
+Date())
+
+def filePath = 
+org.apache.jmeter.util.JMeterUtils.getJMeterProperties().get(&quot;metricsFile&quot;)
+synchronized(this) {
+    def file = new File(filePath)
+    file &lt;&lt; 
+&quot;\&quot;${ts}\&quot;,\&quot;${actionName}\&quot;,\&quot;${currentUrl}\&quot;,\&quot;${metrics.load_ms}\&quot;,\&quot;${
+metrics.dom_content_loaded_ms}\&quot;,\&quot;${metrics.ttfb_ms}\&quot;,\&quot;${metrics.fcp_ms
+}\&quot;,\&quot;${lcp}\&quot;,\&quot;${actionElapsed}\&quot;,\&quot;true\&quot;\n&quot;
+}
+
+//def ts = new Date().format(&quot;yyyy-MM-dd HH:mm:ss&quot;)
+
+//if (!file.exists()) {
+//    file &lt;&lt; 
+&quot;step,timestamp,username,load,dom,ttfb,fcp,lcp,elapsed,success\n&quot;
+//}
+
+//def actionElapsed = System.currentTimeMillis() - actionStart
+
+//file &lt;&lt; 
+&quot;login,${ts},${email},${metrics.load_ms},${metrics.dom_content_loaded_ms},${me
+trics.ttfb_ms},${metrics.fcp_ms},${lcp},${actionElapsed},true\n&quot;</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">groovy</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="02 - jp@gc - WebDriver Sampler - GetHelp Page">
+          <stringProp name="WebDriverSampler.script">import org.openqa.selenium.By
+import org.openqa.selenium.JavascriptExecutor
+import org.openqa.selenium.support.ui.WebDriverWait
+import org.openqa.selenium.support.ui.ExpectedConditions
+import java.time.Duration
+
+def driver = WDS.browser
+def js = (JavascriptExecutor) driver
+
+WDS.log.info(&quot;:--------START OF DOCUMENT SCRIPT:--------&quot;)
+
+def wait = new WebDriverWait(driver, Duration.ofSeconds(30))
+
+// Ensure real app page
+wait.until { drv -&gt;
+    !drv.getCurrentUrl().startsWith(&quot;data:&quot;)
+}
+
+WDS.log.info(&quot;Continuing session&quot;)
+WDS.log.info(&quot;Current URL: &quot; + driver.getCurrentUrl())
+
+// Wait DOM ready
+wait.until {
+    js.executeScript(&quot;return document.readyState&quot;) == &quot;complete&quot;
+}
+
+// FIXED XPath
+
+  def gethelpLink = wait.until(
+    
+ExpectedConditions.elementToBeClickable(By.xpath(&quot;//a[normalize-space()=&apos;G
+et help and guidance&apos;]&quot;)))
+
+  def actionStart = System.currentTimeMillis()
+  WDS.log.info(&quot;Start time: &quot; + actionStart.getText())
+
+  gethelpLink.click()
+   WDS.log.info(&quot;Clicked Get help and guidance link for user:--------&quot;)    
+						 
+
+// FIXED XPath
+  def Gethelpandguidancetheader = wait.until(
+    
+ExpectedConditions.visibilityOfElementLocated(By.xpath(&quot;//h1[contains(norm
+alize-space(),&apos;Get help and guidance&apos;)]&quot;)))
+
+WDS.log.info(&quot;Get Help Page loaded: &quot; + Gethelpandguidancetheader.getText())
+
+
+Thread.sleep(1500)
+
+// Collect navigation + paint metrics
+def metrics = WDS.browser.executeScript(&quot;&quot;&quot;
+    var result = {
+        load_ms: null,
+        dom_content_loaded_ms: null,
+        ttfb_ms: null,
+        fcp_ms: null
+    };
+
+    var nav = performance.getEntriesByType(&apos;navigation&apos;);
+    if (nav &amp;&amp; nav.length &gt; 0) {
+        var n = nav[0];
+        result.load_ms = n.loadEventEnd;
+        result.dom_content_loaded_ms = n.domContentLoadedEventEnd;
+        result.ttfb_ms = n.responseStart - n.requestStart;
+    } else if (performance.timing) {
+        result.load_ms = performance.timing.loadEventEnd - 
+performance.timing.navigationStart;
+        result.dom_content_loaded_ms = 
+performance.timing.domContentLoadedEventEnd - 
+performance.timing.navigationStart;
+        result.ttfb_ms = performance.timing.responseStart - 
+performance.timing.requestStart;
+    }
+
+    var paints = performance.getEntriesByType(&apos;paint&apos;);
+    for (var i = 0; i &lt; paints.length; i++) {
+        if (paints[i].name === &apos;first-contentful-paint&apos;) {
+            result.fcp_ms = paints[i].startTime;
+            break;
+        }
+    }
+
+    return result;
+&quot;&quot;&quot;)
+
+// Capture LCP separately
+def lcp = WDS.browser.executeAsyncScript(&quot;&quot;&quot;
+    var callback = arguments[arguments.length - 1];
+    try {
+        var lcpValue = null;
+        new PerformanceObserver(function(entryList) {
+            var entries = entryList.getEntries();
+            if (entries.length &gt; 0) {
+                lcpValue = entries[entries.length - 1].startTime;
+            }
+        }).observe({type: &apos;largest-contentful-paint&apos;, buffered: true});
+
+        setTimeout(function() {
+            callback(lcpValue);
+        }, 1000);
+    } catch (e) {
+        callback(null);
+    }
+&quot;&quot;&quot;)
+
+def actionElapsed = System.currentTimeMillis() - actionStart
+def currentUrl = WDS.browser.getCurrentUrl()
+def actionName = WDS.sampleResult.getSampleLabel()
+
+def ts = new java.text.SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;).format(new 
+Date())
+
+def filePath = 
+org.apache.jmeter.util.JMeterUtils.getJMeterProperties().get(&quot;metricsFile&quot;)
+synchronized(this) {
+    def file = new File(filePath)
+    file &lt;&lt; 
+&quot;\&quot;${ts}\&quot;,\&quot;${actionName}\&quot;,\&quot;${currentUrl}\&quot;,\&quot;${metrics.load_ms}\&quot;,\&quot;${
+metrics.dom_content_loaded_ms}\&quot;,\&quot;${metrics.ttfb_ms}\&quot;,\&quot;${metrics.fcp_ms
+}\&quot;,\&quot;${lcp}\&quot;,\&quot;${actionElapsed}\&quot;,\&quot;true\&quot;\n&quot;
+}</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">groovy</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="03 - jp@gc - WebDriver Sampler - Payment Page">
+          <stringProp name="WebDriverSampler.script">import org.openqa.selenium.By
+import org.openqa.selenium.JavascriptExecutor
+import org.openqa.selenium.support.ui.WebDriverWait
+import org.openqa.selenium.support.ui.ExpectedConditions
+import java.time.Duration
+
+def driver = WDS.browser
+def js = (JavascriptExecutor) driver
+
+WDS.log.info(&quot;:--------START OF DOCUMENT SCRIPT:--------&quot;)
+
+def wait = new WebDriverWait(driver, Duration.ofSeconds(30))
+
+// Ensure real app page
+wait.until { drv -&gt;
+    !drv.getCurrentUrl().startsWith(&quot;data:&quot;)
+}
+
+WDS.log.info(&quot;Continuing session&quot;)
+WDS.log.info(&quot;Current URL: &quot; + driver.getCurrentUrl())
+
+// Wait DOM ready
+wait.until {
+    js.executeScript(&quot;return document.readyState&quot;) == &quot;complete&quot;
+}
+
+// FIXED XPath
+
+
+def homeLink = wait.until(
+    
+ExpectedConditions.elementToBeClickable(By.xpath(&quot;//a[normalize-space()=&apos;L
+APs home&apos;]&quot;)))
+    homeLink.click()
+     WDS.log.info(&quot;Clicked home page link:--------&quot;)
+     
+def documentsLink = wait.until(
+    ExpectedConditions.elementToBeClickable(
+        By.xpath(&quot;//a[normalize-space()=&apos;Payment documents&apos;]&quot;)
+    )
+)
+
+def actionStart = System.currentTimeMillis()
+
+documentsLink.click()
+
+WDS.log.info(&quot;Clicked documents link&quot;)
+
+// FIXED XPath
+def documentsHeader = wait.until(
+    ExpectedConditions.visibilityOfElementLocated(
+        By.xpath(&quot;//h1[contains(normalize-space(),&apos;Payment documents&apos;)]&quot;)
+    )
+)
+
+WDS.log.info(&quot;Documents page loaded: &quot; + documentsHeader.getText())
+
+
+Thread.sleep(1500)
+
+// Collect navigation + paint metrics
+def metrics = WDS.browser.executeScript(&quot;&quot;&quot;
+    var result = {
+        load_ms: null,
+        dom_content_loaded_ms: null,
+        ttfb_ms: null,
+        fcp_ms: null
+    };
+
+    var nav = performance.getEntriesByType(&apos;navigation&apos;);
+    if (nav &amp;&amp; nav.length &gt; 0) {
+        var n = nav[0];
+        result.load_ms = n.loadEventEnd;
+        result.dom_content_loaded_ms = n.domContentLoadedEventEnd;
+        result.ttfb_ms = n.responseStart - n.requestStart;
+    } else if (performance.timing) {
+        result.load_ms = performance.timing.loadEventEnd - 
+performance.timing.navigationStart;
+        result.dom_content_loaded_ms = 
+performance.timing.domContentLoadedEventEnd - 
+performance.timing.navigationStart;
+        result.ttfb_ms = performance.timing.responseStart - 
+performance.timing.requestStart;
+    }
+
+    var paints = performance.getEntriesByType(&apos;paint&apos;);
+    for (var i = 0; i &lt; paints.length; i++) {
+        if (paints[i].name === &apos;first-contentful-paint&apos;) {
+            result.fcp_ms = paints[i].startTime;
+            break;
+        }
+    }
+
+    return result;
+&quot;&quot;&quot;)
+
+// Capture LCP separately
+def lcp = WDS.browser.executeAsyncScript(&quot;&quot;&quot;
+    var callback = arguments[arguments.length - 1];
+    try {
+        var lcpValue = null;
+        new PerformanceObserver(function(entryList) {
+            var entries = entryList.getEntries();
+            if (entries.length &gt; 0) {
+                lcpValue = entries[entries.length - 1].startTime;
+            }
+        }).observe({type: &apos;largest-contentful-paint&apos;, buffered: true});
+
+        setTimeout(function() {
+            callback(lcpValue);
+        }, 1000);
+    } catch (e) {
+        callback(null);
+    }
+&quot;&quot;&quot;)
+
+def actionElapsed = System.currentTimeMillis() - actionStart
+def currentUrl = WDS.browser.getCurrentUrl()
+def actionName = WDS.sampleResult.getSampleLabel()
+
+def ts = new java.text.SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;).format(new 
+Date())
+
+def filePath = 
+org.apache.jmeter.util.JMeterUtils.getJMeterProperties().get(&quot;metricsFile&quot;)
+synchronized(this) {
+    def file = new File(filePath)
+    file &lt;&lt; 
+&quot;\&quot;${ts}\&quot;,\&quot;${actionName}\&quot;,\&quot;${currentUrl}\&quot;,\&quot;${metrics.load_ms}\&quot;,\&quot;${
+metrics.dom_content_loaded_ms}\&quot;,\&quot;${metrics.ttfb_ms}\&quot;,\&quot;${metrics.fcp_ms
+}\&quot;,\&quot;${lcp}\&quot;,\&quot;${actionElapsed}\&quot;,\&quot;true\&quot;\n&quot;
+}</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">groovy</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="04 - jp@gc - WebDriver Sampler - Bank Details page">
+          <stringProp name="WebDriverSampler.script">import org.openqa.selenium.By
+import org.openqa.selenium.JavascriptExecutor
+import org.openqa.selenium.support.ui.WebDriverWait
+import org.openqa.selenium.support.ui.ExpectedConditions
+import java.time.Duration
+
+def driver = WDS.browser
+def js = (JavascriptExecutor) driver
+
+WDS.log.info(&quot;:--------START OF DOCUMENT SCRIPT:--------&quot;)
+
+def wait = new WebDriverWait(driver, Duration.ofSeconds(30))
+
+// Ensure real app page
+wait.until { drv -&gt;
+    !drv.getCurrentUrl().startsWith(&quot;data:&quot;)
+}
+
+WDS.log.info(&quot;Continuing session&quot;)
+WDS.log.info(&quot;Current URL: &quot; + driver.getCurrentUrl())
+
+// Wait DOM ready
+wait.until {
+    js.executeScript(&quot;return document.readyState&quot;) == &quot;complete&quot;
+}
+
+// FIXED XPath
+
+def homeLink = wait.until(
+    
+ExpectedConditions.elementToBeClickable(By.xpath(&quot;//a[normalize-space()=&apos;L
+APs home&apos;]&quot;)))
+    homeLink.click()
+     WDS.log.info(&quot;Clicked home page link:--------&quot;)
+
+def bankdetailsLink = wait.until(
+ExpectedConditions.elementToBeClickable(By.xpath(&quot;//a[normalize-space()=&apos;Bank 
+details&apos;]&quot;)))
+    
+def actionStart = System.currentTimeMillis()
+
+bankdetailsLink.click()
+WDS.log.info(&quot;Clicked Bank details link for user:--------&quot;) 
+
+// FIXED XPath
+  def bankdetailsHeader = wait.until(
+    
+ExpectedConditions.visibilityOfElementLocated(By.xpath(&quot;//h1[contains(norm
+alize-space(), &apos;Bank details&apos;)]&quot;)))
+
+WDS.log.info(&quot;Bank details page loaded: &quot; + bankdetailsHeader.getText())
+WDS.log.info(&quot;:--------END OF BANK DETAILS PAGE SCRIPT:--------&quot;)  
+    
+Thread.sleep(1500)
+
+// Collect navigation + paint metrics
+def metrics = WDS.browser.executeScript(&quot;&quot;&quot;
+    var result = {
+        load_ms: null,
+        dom_content_loaded_ms: null,
+        ttfb_ms: null,
+        fcp_ms: null
+    };
+
+    var nav = performance.getEntriesByType(&apos;navigation&apos;);
+    if (nav &amp;&amp; nav.length &gt; 0) {
+        var n = nav[0];
+        result.load_ms = n.loadEventEnd;
+        result.dom_content_loaded_ms = n.domContentLoadedEventEnd;
+        result.ttfb_ms = n.responseStart - n.requestStart;
+    } else if (performance.timing) {
+        result.load_ms = performance.timing.loadEventEnd - 
+performance.timing.navigationStart;
+        result.dom_content_loaded_ms = 
+performance.timing.domContentLoadedEventEnd - 
+performance.timing.navigationStart;
+        result.ttfb_ms = performance.timing.responseStart - 
+performance.timing.requestStart;
+    }
+
+    var paints = performance.getEntriesByType(&apos;paint&apos;);
+    for (var i = 0; i &lt; paints.length; i++) {
+        if (paints[i].name === &apos;first-contentful-paint&apos;) {
+            result.fcp_ms = paints[i].startTime;
+            break;
+        }
+    }
+
+    return result;
+&quot;&quot;&quot;)
+
+// Capture LCP separately
+def lcp = WDS.browser.executeAsyncScript(&quot;&quot;&quot;
+    var callback = arguments[arguments.length - 1];
+    try {
+        var lcpValue = null;
+        new PerformanceObserver(function(entryList) {
+            var entries = entryList.getEntries();
+            if (entries.length &gt; 0) {
+                lcpValue = entries[entries.length - 1].startTime;
+            }
+        }).observe({type: &apos;largest-contentful-paint&apos;, buffered: true});
+
+        setTimeout(function() {
+            callback(lcpValue);
+        }, 1000);
+    } catch (e) {
+        callback(null);
+    }
+&quot;&quot;&quot;)
+
+def actionElapsed = System.currentTimeMillis() - actionStart
+def currentUrl = WDS.browser.getCurrentUrl()
+def actionName = WDS.sampleResult.getSampleLabel()
+
+def ts = new java.text.SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;).format(new 
+Date())
+
+def filePath = 
+org.apache.jmeter.util.JMeterUtils.getJMeterProperties().get(&quot;metricsFile&quot;)
+synchronized(this) {
+    def file = new File(filePath)
+    file &lt;&lt; 
+&quot;\&quot;${ts}\&quot;,\&quot;${actionName}\&quot;,\&quot;${currentUrl}\&quot;,\&quot;${metrics.load_ms}\&quot;,\&quot;${
+metrics.dom_content_loaded_ms}\&quot;,\&quot;${metrics.ttfb_ms}\&quot;,\&quot;${metrics.fcp_ms
+}\&quot;,\&quot;${lcp}\&quot;,\&quot;${actionElapsed}\&quot;,\&quot;true\&quot;\n&quot;
+}</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">groovy</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="05 - jp@gc - WebDriver Sampler - Click updatebankdetailsLink">
+          <stringProp name="WebDriverSampler.script">import org.openqa.selenium.By
+import org.openqa.selenium.JavascriptExecutor
+import org.openqa.selenium.support.ui.WebDriverWait
+import org.openqa.selenium.support.ui.ExpectedConditions
+import java.time.Duration
+
+def driver = WDS.browser
+def js = (JavascriptExecutor) driver
+
+WDS.log.info(&quot;:--------START OF CLICK UPDATE BANK DETAILS SCRIPT:--------&quot;)
+
+def wait = new WebDriverWait(driver, Duration.ofSeconds(30))
+
+// Ensure real app page
+wait.until { drv -&gt;
+    !drv.getCurrentUrl().startsWith(&quot;data:&quot;)
+}
+
+WDS.log.info(&quot;Continuing session&quot;)
+WDS.log.info(&quot;Current URL: &quot; + driver.getCurrentUrl())
+
+// Wait DOM ready
+wait.until {
+    js.executeScript(&quot;return document.readyState&quot;) == &quot;complete&quot;
+}
+
+// FIXED XPath
+def updatebankdetailsLink = wait.until(
+    
+ExpectedConditions.elementToBeClickable(By.xpath(&apos;//*[@id=&quot;main-content&quot;]/
+/span[contains(normalize-space(.),&quot;Change your local authority&quot;)]&apos;)))
+   
+
+def actionStart = System.currentTimeMillis()
+
+   updatebankdetailsLink.click()
+     WDS.log.info(&quot;Clicked Update Bank details link for user and user landed 
+in HOW it works page:--------&quot;) 
+
+
+// FIXED XPath
+  def submitbankdetailsLink = wait.until(
+    
+ExpectedConditions.elementToBeClickable(By.xpath(&apos;//*[@id=&quot;main-content&quot;]/
+/a[contains(normalize-space(.),&quot;submit a request to update local&quot;)]&apos;)))
+
+     submitbankdetailsLink.click()
+     WDS.log.info(&quot;Clicked Update Bank details link for user and user landed 
+in HOW it works page:--------&quot;) 
+
+     def howitworksContinue = wait.until(
+	
+ExpectedConditions.elementToBeClickable(By.xpath(&quot;//button[normalize-space
+()=&apos;Continue&apos;] | //a[normalize-space()=&apos;Continue&apos;]&quot;)))
+
+WDS.log.info(&quot;:--------END OF CLICK UPDATE BANK DETAILS SCRIPT:--------&quot;)  
+    
+Thread.sleep(1500)
+
+// Collect navigation + paint metrics
+def metrics = WDS.browser.executeScript(&quot;&quot;&quot;
+    var result = {
+        load_ms: null,
+        dom_content_loaded_ms: null,
+        ttfb_ms: null,
+        fcp_ms: null
+    };
+
+    var nav = performance.getEntriesByType(&apos;navigation&apos;);
+    if (nav &amp;&amp; nav.length &gt; 0) {
+        var n = nav[0];
+        result.load_ms = n.loadEventEnd;
+        result.dom_content_loaded_ms = n.domContentLoadedEventEnd;
+        result.ttfb_ms = n.responseStart - n.requestStart;
+    } else if (performance.timing) {
+        result.load_ms = performance.timing.loadEventEnd - 
+performance.timing.navigationStart;
+        result.dom_content_loaded_ms = 
+performance.timing.domContentLoadedEventEnd - 
+performance.timing.navigationStart;
+        result.ttfb_ms = performance.timing.responseStart - 
+performance.timing.requestStart;
+    }
+
+    var paints = performance.getEntriesByType(&apos;paint&apos;);
+    for (var i = 0; i &lt; paints.length; i++) {
+        if (paints[i].name === &apos;first-contentful-paint&apos;) {
+            result.fcp_ms = paints[i].startTime;
+            break;
+        }
+    }
+
+    return result;
+&quot;&quot;&quot;)
+
+// Capture LCP separately
+def lcp = WDS.browser.executeAsyncScript(&quot;&quot;&quot;
+    var callback = arguments[arguments.length - 1];
+    try {
+        var lcpValue = null;
+        new PerformanceObserver(function(entryList) {
+            var entries = entryList.getEntries();
+            if (entries.length &gt; 0) {
+                lcpValue = entries[entries.length - 1].startTime;
+            }
+        }).observe({type: &apos;largest-contentful-paint&apos;, buffered: true});
+
+        setTimeout(function() {
+            callback(lcpValue);
+        }, 1000);
+    } catch (e) {
+        callback(null);
+    }
+&quot;&quot;&quot;)
+
+def actionElapsed = System.currentTimeMillis() - actionStart
+def currentUrl = WDS.browser.getCurrentUrl()
+def actionName = WDS.sampleResult.getSampleLabel()
+
+def ts = new java.text.SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;).format(new 
+Date())
+
+def filePath = 
+org.apache.jmeter.util.JMeterUtils.getJMeterProperties().get(&quot;metricsFile&quot;)
+synchronized(this) {
+    def file = new File(filePath)
+    file &lt;&lt; 
+&quot;\&quot;${ts}\&quot;,\&quot;${actionName}\&quot;,\&quot;${currentUrl}\&quot;,\&quot;${metrics.load_ms}\&quot;,\&quot;${
+metrics.dom_content_loaded_ms}\&quot;,\&quot;${metrics.ttfb_ms}\&quot;,\&quot;${metrics.fcp_ms
+}\&quot;,\&quot;${lcp}\&quot;,\&quot;${actionElapsed}\&quot;,\&quot;true\&quot;\n&quot;
+}</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">groovy</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="06 - jp@gc - WebDriver Sampler - Click_How it works page">
+          <stringProp name="WebDriverSampler.script">import org.openqa.selenium.By
+import org.openqa.selenium.JavascriptExecutor
+import org.openqa.selenium.support.ui.WebDriverWait
+import org.openqa.selenium.support.ui.ExpectedConditions
+import java.time.Duration
+
+def driver = WDS.browser
+def js = (JavascriptExecutor) driver
+
+WDS.log.info(&quot;:--------START OF HOW IT WORKS PAGE SCRIPT:--------&quot;)
+
+def wait = new WebDriverWait(driver, Duration.ofSeconds(30))
+
+// Ensure real app page
+wait.until { drv -&gt;
+    !drv.getCurrentUrl().startsWith(&quot;data:&quot;)
+}
+
+WDS.log.info(&quot;Continuing session&quot;)
+WDS.log.info(&quot;Current URL: &quot; + driver.getCurrentUrl())
+
+// Wait DOM ready
+wait.until {
+    js.executeScript(&quot;return document.readyState&quot;) == &quot;complete&quot;
+}
+
+// FIXED XPath....................................
+def howitworksContinue = wait.until(
+	
+ExpectedConditions.elementToBeClickable(By.xpath(&quot;//button[normalize-space
+()=&apos;Continue&apos;] | //a[normalize-space()=&apos;Continue&apos;]&quot;)))
+def actionStart = System.currentTimeMillis()
+
+howitworksContinue.click()
+ WDS.log.info(&quot;Clicked Continue:--------&quot;)    
+
+ def updatePageHeader = wait.until(
+  ExpectedConditions.visibilityOfElementLocated(
+  By.xpath(&quot;//h1[contains(normalize-space(), &apos;Add new bank account 
+details&apos;)]&quot;)
+  )
+)
+
+WDS.log.info(&quot;:--------END OF HOW IT WORKS PAGE SCRIPT:--------&quot;)  
+    
+Thread.sleep(1500)
+
+// Collect navigation + paint metrics
+def metrics = WDS.browser.executeScript(&quot;&quot;&quot;
+    var result = {
+        load_ms: null,
+        dom_content_loaded_ms: null,
+        ttfb_ms: null,
+        fcp_ms: null
+    };
+
+    var nav = performance.getEntriesByType(&apos;navigation&apos;);
+    if (nav &amp;&amp; nav.length &gt; 0) {
+        var n = nav[0];
+        result.load_ms = n.loadEventEnd;
+        result.dom_content_loaded_ms = n.domContentLoadedEventEnd;
+        result.ttfb_ms = n.responseStart - n.requestStart;
+    } else if (performance.timing) {
+        result.load_ms = performance.timing.loadEventEnd - 
+performance.timing.navigationStart;
+        result.dom_content_loaded_ms = 
+performance.timing.domContentLoadedEventEnd - 
+performance.timing.navigationStart;
+        result.ttfb_ms = performance.timing.responseStart - 
+performance.timing.requestStart;
+    }
+
+    var paints = performance.getEntriesByType(&apos;paint&apos;);
+    for (var i = 0; i &lt; paints.length; i++) {
+        if (paints[i].name === &apos;first-contentful-paint&apos;) {
+            result.fcp_ms = paints[i].startTime;
+            break;
+        }
+    }
+
+    return result;
+&quot;&quot;&quot;)
+
+// Capture LCP separately
+def lcp = WDS.browser.executeAsyncScript(&quot;&quot;&quot;
+    var callback = arguments[arguments.length - 1];
+    try {
+        var lcpValue = null;
+        new PerformanceObserver(function(entryList) {
+            var entries = entryList.getEntries();
+            if (entries.length &gt; 0) {
+                lcpValue = entries[entries.length - 1].startTime;
+            }
+        }).observe({type: &apos;largest-contentful-paint&apos;, buffered: true});
+
+        setTimeout(function() {
+            callback(lcpValue);
+        }, 1000);
+    } catch (e) {
+        callback(null);
+    }
+&quot;&quot;&quot;)
+
+def actionElapsed = System.currentTimeMillis() - actionStart
+def currentUrl = WDS.browser.getCurrentUrl()
+def actionName = WDS.sampleResult.getSampleLabel()
+
+def ts = new java.text.SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;).format(new 
+Date())
+
+def filePath = 
+org.apache.jmeter.util.JMeterUtils.getJMeterProperties().get(&quot;metricsFile&quot;)
+synchronized(this) {
+    def file = new File(filePath)
+    file &lt;&lt; 
+&quot;\&quot;${ts}\&quot;,\&quot;${actionName}\&quot;,\&quot;${currentUrl}\&quot;,\&quot;${metrics.load_ms}\&quot;,\&quot;${
+metrics.dom_content_loaded_ms}\&quot;,\&quot;${metrics.ttfb_ms}\&quot;,\&quot;${metrics.fcp_ms
+}\&quot;,\&quot;${lcp}\&quot;,\&quot;${actionElapsed}\&quot;,\&quot;true\&quot;\n&quot;
+}</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">groovy</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="07 - jp@gc - WebDriver Sampler - Add bank details">
+          <stringProp name="WebDriverSampler.script">import org.openqa.selenium.By
+import org.openqa.selenium.JavascriptExecutor
+import org.openqa.selenium.support.ui.WebDriverWait
+import org.openqa.selenium.support.ui.ExpectedConditions
+import java.time.Duration
+
+def driver = WDS.browser
+def js = (JavascriptExecutor) driver
+
+WDS.log.info(&quot;:--------START OF ADD BANK DETAILS PAGE SCRIPT:--------&quot;)
+
+def wait = new WebDriverWait(driver, Duration.ofSeconds(30))
+
+// Ensure real app page
+wait.until { drv -&gt;
+    !drv.getCurrentUrl().startsWith(&quot;data:&quot;)
+}
+
+WDS.log.info(&quot;Continuing session&quot;)
+WDS.log.info(&quot;Current URL: &quot; + driver.getCurrentUrl())
+
+// Wait DOM ready
+wait.until {
+    js.executeScript(&quot;return document.readyState&quot;) == &quot;complete&quot;
+}
+
+// FIXED XPath  ..............................
+
+def updatePageHeader = wait.until(
+  ExpectedConditions.visibilityOfElementLocated(
+  By.xpath(&quot;//h1[contains(normalize-space(), &apos;Add new bank account 
+details&apos;)]&quot;)
+  )
+)
+
+def actionStart = System.currentTimeMillis()
+
+// wait for and fill &quot;Name&quot;
+def nameField = wait.until(
+  
+ExpectedConditions.visibilityOfElementLocated(By.xpath(&apos;//*[@id=&quot;accountName
+&quot;]&apos;))
+)
+nameField.clear()
+nameField.sendKeys(&quot;Test Name&quot;)
+
+// wait for and fill &quot;Code&quot;
+def codeField = wait.until(
+  
+ExpectedConditions.visibilityOfElementLocated(By.xpath(&apos;//*[@id=&quot;sortCode&quot;]&apos;
+))
+)
+codeField.clear()
+codeField.sendKeys(&quot;102030&quot;)
+
+// wait for and fill &quot;Number&quot;
+def numberField = wait.until(
+  
+ExpectedConditions.visibilityOfElementLocated(By.xpath(&apos;//*[@id=&quot;accountNumb
+er&quot;]&apos;))
+)
+numberField.clear()
+numberField.sendKeys(&quot;98765432&quot;)
+
+// Click Continue
+def continueButton = wait.until(
+	
+ExpectedConditions.elementToBeClickable(By.xpath(&quot;//button[normalize-space
+()=&apos;Continue&apos;] | //a[normalize-space()=&apos;Continue&apos;]&quot;)))
+continueButton.click()
+ WDS.log.info(&quot;Clicked Continue:----------&quot;)
+
+def confirmButton = wait.until(
+	
+ExpectedConditions.elementToBeClickable(By.xpath(&quot;//button[normalize-space
+()=&apos;Confirm and submit&apos;] | //a[normalize-space()=&apos;Confirm and submit&apos;]&quot;)))
+ 
+    WDS.log.info(&quot;:-----ENDED ADD BANK DETAILS PAGE SCRIPT--------&quot;)
+
+    
+Thread.sleep(1500)
+
+// Collect navigation + paint metrics
+def metrics = WDS.browser.executeScript(&quot;&quot;&quot;
+    var result = {
+        load_ms: null,
+        dom_content_loaded_ms: null,
+        ttfb_ms: null,
+        fcp_ms: null
+    };
+
+    var nav = performance.getEntriesByType(&apos;navigation&apos;);
+    if (nav &amp;&amp; nav.length &gt; 0) {
+        var n = nav[0];
+        result.load_ms = n.loadEventEnd;
+        result.dom_content_loaded_ms = n.domContentLoadedEventEnd;
+        result.ttfb_ms = n.responseStart - n.requestStart;
+    } else if (performance.timing) {
+        result.load_ms = performance.timing.loadEventEnd - 
+performance.timing.navigationStart;
+        result.dom_content_loaded_ms = 
+performance.timing.domContentLoadedEventEnd - 
+performance.timing.navigationStart;
+        result.ttfb_ms = performance.timing.responseStart - 
+performance.timing.requestStart;
+    }
+
+    var paints = performance.getEntriesByType(&apos;paint&apos;);
+    for (var i = 0; i &lt; paints.length; i++) {
+        if (paints[i].name === &apos;first-contentful-paint&apos;) {
+            result.fcp_ms = paints[i].startTime;
+            break;
+        }
+    }
+
+    return result;
+&quot;&quot;&quot;)
+
+// Capture LCP separately
+def lcp = WDS.browser.executeAsyncScript(&quot;&quot;&quot;
+    var callback = arguments[arguments.length - 1];
+    try {
+        var lcpValue = null;
+        new PerformanceObserver(function(entryList) {
+            var entries = entryList.getEntries();
+            if (entries.length &gt; 0) {
+                lcpValue = entries[entries.length - 1].startTime;
+            }
+        }).observe({type: &apos;largest-contentful-paint&apos;, buffered: true});
+
+        setTimeout(function() {
+            callback(lcpValue);
+        }, 1000);
+    } catch (e) {
+        callback(null);
+    }
+&quot;&quot;&quot;)
+
+def actionElapsed = System.currentTimeMillis() - actionStart
+def currentUrl = WDS.browser.getCurrentUrl()
+def actionName = WDS.sampleResult.getSampleLabel()
+
+def ts = new java.text.SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;).format(new 
+Date())
+
+def filePath = 
+org.apache.jmeter.util.JMeterUtils.getJMeterProperties().get(&quot;metricsFile&quot;)
+synchronized(this) {
+    def file = new File(filePath)
+    file &lt;&lt; 
+&quot;\&quot;${ts}\&quot;,\&quot;${actionName}\&quot;,\&quot;${currentUrl}\&quot;,\&quot;${metrics.load_ms}\&quot;,\&quot;${
+metrics.dom_content_loaded_ms}\&quot;,\&quot;${metrics.ttfb_ms}\&quot;,\&quot;${metrics.fcp_ms
+}\&quot;,\&quot;${lcp}\&quot;,\&quot;${actionElapsed}\&quot;,\&quot;true\&quot;\n&quot;
+}</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">groovy</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="08 - jp@gc - WebDriver Sampler - Confirm new bank account">
+          <stringProp name="WebDriverSampler.script">import org.openqa.selenium.By
+import org.openqa.selenium.JavascriptExecutor
+import org.openqa.selenium.support.ui.WebDriverWait
+import org.openqa.selenium.support.ui.ExpectedConditions
+import java.time.Duration
+
+def driver = WDS.browser
+def js = (JavascriptExecutor) driver
+
+WDS.log.info(&quot;:--------START OF CYA PAGE SCRIPT:--------&quot;)
+
+def wait = new WebDriverWait(driver, Duration.ofSeconds(30))
+
+// Ensure real app page
+wait.until { drv -&gt;
+    !drv.getCurrentUrl().startsWith(&quot;data:&quot;)
+}
+
+WDS.log.info(&quot;Continuing session&quot;)
+WDS.log.info(&quot;Current URL: &quot; + driver.getCurrentUrl())
+
+// Wait DOM ready
+wait.until {
+    js.executeScript(&quot;return document.readyState&quot;) == &quot;complete&quot;
+}
+
+// FIXED XPath....................................
+def confirmButton = wait.until(
+	ExpectedConditions.elementToBeClickable(By.xpath(&quot;//button[normalize-space()=&apos;Confirm and submit&apos;] | //a[normalize-space()=&apos;Confirm and submit&apos;]&quot;)))
+def actionStart = System.currentTimeMillis()
+
+confirmButton.click()
+ WDS.log.info(&quot;Clicked Confirm and submit button:---------&quot;)
+
+def confirmbankdetailsPageHeader = wait.until(
+  ExpectedConditions.visibilityOfElementLocated(
+  By.xpath(&quot;//h1[contains(normalize-space(), &apos;New bank account details submitted&apos;)]&quot;)
+  )
+)
+ 
+
+WDS.log.info(&quot;:-----ENDED CYA PAGE FOR BANK DETAILS SCRIPT--------&quot;)  
+    
+Thread.sleep(1500)
+
+// Collect navigation + paint metrics
+def metrics = WDS.browser.executeScript(&quot;&quot;&quot;
+    var result = {
+        load_ms: null,
+        dom_content_loaded_ms: null,
+        ttfb_ms: null,
+        fcp_ms: null
+    };
+
+    var nav = performance.getEntriesByType(&apos;navigation&apos;);
+    if (nav &amp;&amp; nav.length &gt; 0) {
+        var n = nav[0];
+        result.load_ms = n.loadEventEnd;
+        result.dom_content_loaded_ms = n.domContentLoadedEventEnd;
+        result.ttfb_ms = n.responseStart - n.requestStart;
+    } else if (performance.timing) {
+        result.load_ms = performance.timing.loadEventEnd - performance.timing.navigationStart;
+        result.dom_content_loaded_ms = performance.timing.domContentLoadedEventEnd - performance.timing.navigationStart;
+        result.ttfb_ms = performance.timing.responseStart - performance.timing.requestStart;
+    }
+
+    var paints = performance.getEntriesByType(&apos;paint&apos;);
+    for (var i = 0; i &lt; paints.length; i++) {
+        if (paints[i].name === &apos;first-contentful-paint&apos;) {
+            result.fcp_ms = paints[i].startTime;
+            break;
+        }
+    }
+
+    return result;
+&quot;&quot;&quot;)
+
+// Capture LCP separately
+def lcp = WDS.browser.executeAsyncScript(&quot;&quot;&quot;
+    var callback = arguments[arguments.length - 1];
+    try {
+        var lcpValue = null;
+        new PerformanceObserver(function(entryList) {
+            var entries = entryList.getEntries();
+            if (entries.length &gt; 0) {
+                lcpValue = entries[entries.length - 1].startTime;
+            }
+        }).observe({type: &apos;largest-contentful-paint&apos;, buffered: true});
+
+        setTimeout(function() {
+            callback(lcpValue);
+        }, 1000);
+    } catch (e) {
+        callback(null);
+    }
+&quot;&quot;&quot;)
+
+def actionElapsed = System.currentTimeMillis() - actionStart
+def currentUrl = WDS.browser.getCurrentUrl()
+def actionName = WDS.sampleResult.getSampleLabel()
+
+def ts = new java.text.SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;).format(new Date())
+
+def filePath = org.apache.jmeter.util.JMeterUtils.getJMeterProperties().get(&quot;metricsFile&quot;)
+synchronized(this) {
+    def file = new File(filePath)
+    file &lt;&lt; &quot;\&quot;${ts}\&quot;,\&quot;${actionName}\&quot;,\&quot;${currentUrl}\&quot;,\&quot;${metrics.load_ms}\&quot;,\&quot;${metrics.dom_content_loaded_ms}\&quot;,\&quot;${metrics.ttfb_ms}\&quot;,\&quot;${metrics.fcp_ms}\&quot;,\&quot;${lcp}\&quot;,\&quot;${actionElapsed}\&quot;,\&quot;true\&quot;\n&quot;
+}</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">groovy</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="09 - jp@gc - WebDriver Sampler - Confirm bank details page">
+          <stringProp name="WebDriverSampler.script">import org.openqa.selenium.By
+import org.openqa.selenium.JavascriptExecutor
+import org.openqa.selenium.support.ui.WebDriverWait
+import org.openqa.selenium.support.ui.ExpectedConditions
+import java.time.Duration
+
+def driver = WDS.browser
+def js = (JavascriptExecutor) driver
+
+WDS.log.info(&quot;:--------START OF CONFIRM BANK DETAILS PAGE SCRIPT:--------&quot;)
+
+def wait = new WebDriverWait(driver, Duration.ofSeconds(30))
+
+// Ensure real app page
+wait.until { drv -&gt;
+    !drv.getCurrentUrl().startsWith(&quot;data:&quot;)
+}
+
+WDS.log.info(&quot;Continuing session&quot;)
+WDS.log.info(&quot;Current URL: &quot; + driver.getCurrentUrl())
+
+// Wait DOM ready
+wait.until {
+    js.executeScript(&quot;return document.readyState&quot;) == &quot;complete&quot;
+}
+
+// FIXED XPath....................................
+def confirmbankdetailsPageHeader = wait.until(
+  ExpectedConditions.visibilityOfElementLocated(
+  By.xpath(&quot;//h1[contains(normalize-space(), &apos;New bank account details submitted&apos;)]&quot;)))
+
+def actionStart = System.currentTimeMillis()
+def bankLink = wait.until(
+    ExpectedConditions.elementToBeClickable(By.xpath(&quot;//a[normalize-space()=&apos;Go to Bank details&apos;]&quot;)))
+    bankLink.click()
+     WDS.log.info(&quot;Clicked bank page link:--------&quot;)
+     
+ WDS.log.info(&quot;Clicked bank Link:---------&quot;)
+
+def bankdetailsLink = wait.until(
+ExpectedConditions.elementToBeClickable(By.xpath(&quot;//a[normalize-space()=&apos;Bank details&apos;]&quot;)))
+ 
+
+WDS.log.info(&quot;:-----ENDED CONFIRM BANK DETAILS PAGE SCRIPT--------&quot;)  
+    
+Thread.sleep(1500)
+
+// Collect navigation + paint metrics
+def metrics = WDS.browser.executeScript(&quot;&quot;&quot;
+    var result = {
+        load_ms: null,
+        dom_content_loaded_ms: null,
+        ttfb_ms: null,
+        fcp_ms: null
+    };
+
+    var nav = performance.getEntriesByType(&apos;navigation&apos;);
+    if (nav &amp;&amp; nav.length &gt; 0) {
+        var n = nav[0];
+        result.load_ms = n.loadEventEnd;
+        result.dom_content_loaded_ms = n.domContentLoadedEventEnd;
+        result.ttfb_ms = n.responseStart - n.requestStart;
+    } else if (performance.timing) {
+        result.load_ms = performance.timing.loadEventEnd - performance.timing.navigationStart;
+        result.dom_content_loaded_ms = performance.timing.domContentLoadedEventEnd - performance.timing.navigationStart;
+        result.ttfb_ms = performance.timing.responseStart - performance.timing.requestStart;
+    }
+
+    var paints = performance.getEntriesByType(&apos;paint&apos;);
+    for (var i = 0; i &lt; paints.length; i++) {
+        if (paints[i].name === &apos;first-contentful-paint&apos;) {
+            result.fcp_ms = paints[i].startTime;
+            break;
+        }
+    }
+
+    return result;
+&quot;&quot;&quot;)
+
+// Capture LCP separately
+def lcp = WDS.browser.executeAsyncScript(&quot;&quot;&quot;
+    var callback = arguments[arguments.length - 1];
+    try {
+        var lcpValue = null;
+        new PerformanceObserver(function(entryList) {
+            var entries = entryList.getEntries();
+            if (entries.length &gt; 0) {
+                lcpValue = entries[entries.length - 1].startTime;
+            }
+        }).observe({type: &apos;largest-contentful-paint&apos;, buffered: true});
+
+        setTimeout(function() {
+            callback(lcpValue);
+        }, 1000);
+    } catch (e) {
+        callback(null);
+    }
+&quot;&quot;&quot;)
+
+def actionElapsed = System.currentTimeMillis() - actionStart
+def currentUrl = WDS.browser.getCurrentUrl()
+def actionName = WDS.sampleResult.getSampleLabel()
+
+def ts = new java.text.SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;).format(new Date())
+
+def filePath = org.apache.jmeter.util.JMeterUtils.getJMeterProperties().get(&quot;metricsFile&quot;)
+synchronized(this) {
+    def file = new File(filePath)
+    file &lt;&lt; &quot;\&quot;${ts}\&quot;,\&quot;${actionName}\&quot;,\&quot;${currentUrl}\&quot;,\&quot;${metrics.load_ms}\&quot;,\&quot;${metrics.dom_content_loaded_ms}\&quot;,\&quot;${metrics.ttfb_ms}\&quot;,\&quot;${metrics.fcp_ms}\&quot;,\&quot;${lcp}\&quot;,\&quot;${actionElapsed}\&quot;,\&quot;true\&quot;\n&quot;
+}</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">groovy</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="10 - jp@gc - WebDriver Sampler - Confirm bank details Landing page as HOF">
+          <stringProp name="WebDriverSampler.script">import org.openqa.selenium.By
+import org.openqa.selenium.JavascriptExecutor
+import org.openqa.selenium.support.ui.WebDriverWait
+import org.openqa.selenium.support.ui.ExpectedConditions
+import java.time.Duration
+
+def driver = WDS.browser
+def js = (JavascriptExecutor) driver
+
+WDS.log.info(&quot;:--------START OF CONFIRM BANK DETAILS PAGE HOF SCRIPT:--------&quot;)
+
+def wait = new WebDriverWait(driver, Duration.ofSeconds(30))
+
+// Ensure real app page
+wait.until { drv -&gt;
+    !drv.getCurrentUrl().startsWith(&quot;data:&quot;)
+}
+
+WDS.log.info(&quot;Continuing session&quot;)
+WDS.log.info(&quot;Current URL: &quot; + driver.getCurrentUrl())
+
+// Wait DOM ready
+wait.until {
+    js.executeScript(&quot;return document.readyState&quot;) == &quot;complete&quot;
+}
+
+// FIXED XPath....................................
+  def bankdetailsHeader = wait.until(
+    ExpectedConditions.visibilityOfElementLocated(By.xpath(&quot;//h1[contains(normalize-space(), &apos;Bank details&apos;)]&quot;)))
+
+// Validate contents of Confirm bank details page //
+    def actionStart = System.currentTimeMillis()
+    
+  driver.get(&quot;https://epr-laps-frontend.perf-test.cdp-int.defra.cloud/confirm&quot;)
+
+   WDS.log.info(&quot;Entered Confirm bank details link for user 12345678:--------&quot;)   
+
+ //def selectcheckbox = wait.until(
+//	ExpectedConditions.elementToBeClickable(By.xpath(&quot;//*[@id=&quot;confirm-bank-details&quot;]&quot;)))  
+ //  WDS.log.info(&quot;:-----ENDED CONFIRM BANK DETAILS PAGE SCRIPT--------&quot;)  
+ WDS.log.info(&quot;:--------END OF CONFIRM BANK DETAILS PAGE HOF SCRIPT:--------&quot;)   
+Thread.sleep(1500)
+
+// Collect navigation + paint metrics
+def metrics = WDS.browser.executeScript(&quot;&quot;&quot;
+    var result = {
+        load_ms: null,
+        dom_content_loaded_ms: null,
+        ttfb_ms: null,
+        fcp_ms: null
+    };
+
+    var nav = performance.getEntriesByType(&apos;navigation&apos;);
+    if (nav &amp;&amp; nav.length &gt; 0) {
+        var n = nav[0];
+        result.load_ms = n.loadEventEnd;
+        result.dom_content_loaded_ms = n.domContentLoadedEventEnd;
+        result.ttfb_ms = n.responseStart - n.requestStart;
+    } else if (performance.timing) {
+        result.load_ms = performance.timing.loadEventEnd - performance.timing.navigationStart;
+        result.dom_content_loaded_ms = performance.timing.domContentLoadedEventEnd - performance.timing.navigationStart;
+        result.ttfb_ms = performance.timing.responseStart - performance.timing.requestStart;
+    }
+
+    var paints = performance.getEntriesByType(&apos;paint&apos;);
+    for (var i = 0; i &lt; paints.length; i++) {
+        if (paints[i].name === &apos;first-contentful-paint&apos;) {
+            result.fcp_ms = paints[i].startTime;
+            break;
+        }
+    }
+
+    return result;
+&quot;&quot;&quot;)
+
+// Capture LCP separately
+def lcp = WDS.browser.executeAsyncScript(&quot;&quot;&quot;
+    var callback = arguments[arguments.length - 1];
+    try {
+        var lcpValue = null;
+        new PerformanceObserver(function(entryList) {
+            var entries = entryList.getEntries();
+            if (entries.length &gt; 0) {
+                lcpValue = entries[entries.length - 1].startTime;
+            }
+        }).observe({type: &apos;largest-contentful-paint&apos;, buffered: true});
+
+        setTimeout(function() {
+            callback(lcpValue);
+        }, 1000);
+    } catch (e) {
+        callback(null);
+    }
+&quot;&quot;&quot;)
+
+def actionElapsed = System.currentTimeMillis() - actionStart
+def currentUrl = WDS.browser.getCurrentUrl()
+def actionName = WDS.sampleResult.getSampleLabel()
+
+def ts = new java.text.SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;).format(new Date())
+
+def filePath = org.apache.jmeter.util.JMeterUtils.getJMeterProperties().get(&quot;metricsFile&quot;)
+synchronized(this) {
+    def file = new File(filePath)
+    file &lt;&lt; &quot;\&quot;${ts}\&quot;,\&quot;${actionName}\&quot;,\&quot;${currentUrl}\&quot;,\&quot;${metrics.load_ms}\&quot;,\&quot;${metrics.dom_content_loaded_ms}\&quot;,\&quot;${metrics.ttfb_ms}\&quot;,\&quot;${metrics.fcp_ms}\&quot;,\&quot;${lcp}\&quot;,\&quot;${actionElapsed}\&quot;,\&quot;true\&quot;\n&quot;
+}</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">groovy</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler guiclass="com.googlecode.jmeter.plugins.webdriver.sampler.gui.WebDriverSamplerGui" testclass="com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler" testname="11 - jp@gc - WebDriver Sampler - Confirm bank details submit as HOF">
+          <stringProp name="WebDriverSampler.script">import org.openqa.selenium.By
+import org.openqa.selenium.JavascriptExecutor
+import org.openqa.selenium.support.ui.WebDriverWait
+import org.openqa.selenium.support.ui.ExpectedConditions
+import java.time.Duration
+
+def driver = WDS.browser
+def js = (JavascriptExecutor) driver
+
+WDS.log.info(&quot;:--------START OF SUBMIT HOF PAGE SCRIPT:--------&quot;)
+
+def wait = new WebDriverWait(driver, Duration.ofSeconds(30))
+
+// Ensure real app page
+wait.until { drv -&gt;
+    !drv.getCurrentUrl().startsWith(&quot;data:&quot;)
+}
+
+WDS.log.info(&quot;Continuing session&quot;)
+WDS.log.info(&quot;Current URL: &quot; + driver.getCurrentUrl())
+
+// Wait DOM ready
+wait.until {
+    js.executeScript(&quot;return document.readyState&quot;) == &quot;complete&quot;
+}
+
+// FIXED XPath....................................
+
+
+// Validate contents of Confirm bank details page //
+def actionStart = System.currentTimeMillis()
+def selectcheckbox = wait.until(
+	ExpectedConditions.visibilityOfElementLocated(By.xpath(&apos;//*[@id=&quot;confirm-bank-details-form&quot;]/fieldset/div/div/label&apos;)))
+
+   selectcheckbox.click()   
+     def continue1Btn = wait.until(
+	ExpectedConditions.elementToBeClickable(By.xpath(&quot;//button[normalize-space()=&apos;Continue&apos;] | //a[normalize-space()=&apos;Continue&apos;]&quot;)))
+continue1Btn.click()
+
+    def submitconfirmationheader = wait.until(
+    ExpectedConditions.visibilityOfElementLocated(By.xpath(&quot;//h1[contains(normalize-space(),&apos;Bank details confirmed&apos;)]&quot;)))
+    WDS.log.info(&quot;Bank details confirmed page displayed for user--------&quot;) 
+    WDS.log.info(&quot;:--------END OF  OF SUBMIT HOF PAGE SCRIPT:--------&quot;)     
+    
+Thread.sleep(1500)
+
+// Collect navigation + paint metrics
+def metrics = WDS.browser.executeScript(&quot;&quot;&quot;
+    var result = {
+        load_ms: null,
+        dom_content_loaded_ms: null,
+        ttfb_ms: null,
+        fcp_ms: null
+    };
+
+    var nav = performance.getEntriesByType(&apos;navigation&apos;);
+    if (nav &amp;&amp; nav.length &gt; 0) {
+        var n = nav[0];
+        result.load_ms = n.loadEventEnd;
+        result.dom_content_loaded_ms = n.domContentLoadedEventEnd;
+        result.ttfb_ms = n.responseStart - n.requestStart;
+    } else if (performance.timing) {
+        result.load_ms = performance.timing.loadEventEnd - performance.timing.navigationStart;
+        result.dom_content_loaded_ms = performance.timing.domContentLoadedEventEnd - performance.timing.navigationStart;
+        result.ttfb_ms = performance.timing.responseStart - performance.timing.requestStart;
+    }
+
+    var paints = performance.getEntriesByType(&apos;paint&apos;);
+    for (var i = 0; i &lt; paints.length; i++) {
+        if (paints[i].name === &apos;first-contentful-paint&apos;) {
+            result.fcp_ms = paints[i].startTime;
+            break;
+        }
+    }
+
+    return result;
+&quot;&quot;&quot;)
+
+// Capture LCP separately
+def lcp = WDS.browser.executeAsyncScript(&quot;&quot;&quot;
+    var callback = arguments[arguments.length - 1];
+    try {
+        var lcpValue = null;
+        new PerformanceObserver(function(entryList) {
+            var entries = entryList.getEntries();
+            if (entries.length &gt; 0) {
+                lcpValue = entries[entries.length - 1].startTime;
+            }
+        }).observe({type: &apos;largest-contentful-paint&apos;, buffered: true});
+
+        setTimeout(function() {
+            callback(lcpValue);
+        }, 1000);
+    } catch (e) {
+        callback(null);
+    }
+&quot;&quot;&quot;)
+
+def actionElapsed = System.currentTimeMillis() - actionStart
+def currentUrl = WDS.browser.getCurrentUrl()
+def actionName = WDS.sampleResult.getSampleLabel()
+
+def ts = new java.text.SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;).format(new Date())
+
+def filePath = org.apache.jmeter.util.JMeterUtils.getJMeterProperties().get(&quot;metricsFile&quot;)
+synchronized(this) {
+    def file = new File(filePath)
+    file &lt;&lt; &quot;\&quot;${ts}\&quot;,\&quot;${actionName}\&quot;,\&quot;${currentUrl}\&quot;,\&quot;${metrics.load_ms}\&quot;,\&quot;${metrics.dom_content_loaded_ms}\&quot;,\&quot;${metrics.ttfb_ms}\&quot;,\&quot;${metrics.fcp_ms}\&quot;,\&quot;${lcp}\&quot;,\&quot;${actionElapsed}\&quot;,\&quot;true\&quot;\n&quot;
+}</stringProp>
+          <stringProp name="WebDriverSampler.parameters"></stringProp>
+          <stringProp name="WebDriverSampler.language">groovy</stringProp>
+        </com.googlecode.jmeter.plugins.webdriver.sampler.WebDriverSampler>
+        <hashTree/>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename">C:\DEFRA_PERF\LAPs\Test Results\LAPS_PERF_TEST_Summary_Results_${__time(yyyyMMdd_HHmmss)}.jtl</stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename">C:\DEFRA_PERF\LAPs\Test Results\LAPS_PERF_TEST_Results_${__time(yyyyMMdd_HHmmss)}.jtl</stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
